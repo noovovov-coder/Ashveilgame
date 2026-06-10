@@ -27,6 +27,32 @@ namespace Ashveil.Combat
             Current = maxHealth;
         }
 
+        public void Heal(float amount)
+        {
+            if (IsDead || amount <= 0f)
+                return;
+
+            Current = Mathf.Min(maxHealth, Current + amount);
+        }
+
+        /// <summary>Скейлинг (боссы по числу игроков, GDD §5). Вызывать до начала боя.</summary>
+        public void SetMax(float newMax, bool refill)
+        {
+            maxHealth = Mathf.Max(1f, newMax);
+            if (refill)
+                Current = maxHealth;
+            else
+                Current = Mathf.Min(Current, maxHealth);
+        }
+
+        /// <summary>Принудительная установка HP (репликация с сервера).</summary>
+        public void ForceSet(float value)
+        {
+            Current = Mathf.Clamp(value, 0f, maxHealth);
+            if (Current <= 0f)
+                Died?.Invoke();
+        }
+
         public bool TakeDamage(in DamageInfo info)
         {
             if (IsDead)

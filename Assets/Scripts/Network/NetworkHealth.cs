@@ -53,17 +53,10 @@ namespace Ashveil.Network
         // Вызывается на клиентах при получении нового значения SyncVar.
         private void OnHealthChanged(float prev, float next, bool asServer)
         {
-            if (!IsServerInitialized)
-            {
-                // На клиенте форсируем значение напрямую в Health,
-                // минуя DamageGate (авторитетно пришло с сервера).
-                if (_health != null)
-                {
-                    typeof(Health)
-                        .GetProperty(nameof(Health.Current))
-                        ?.SetValue(_health, next);
-                }
-            }
+            // На клиенте форсируем значение напрямую, минуя DamageGate
+            // (авторитетно пришло с сервера).
+            if (!IsServerInitialized && _health != null)
+                _health.ForceSet(next);
         }
 
         /// <summary>
