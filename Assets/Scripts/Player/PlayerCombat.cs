@@ -1,5 +1,7 @@
 using System.Collections;
 using Ashveil.Combat;
+using Ashveil.Network;
+using FishNet.Object;
 using UnityEngine;
 
 namespace Ashveil.Player
@@ -153,8 +155,19 @@ namespace Ashveil.Player
                 if (hit.transform.root == transform.root)
                     continue;
 
+                GameObject root = hit.transform.root.gameObject;
+
+                // Сетевой враг: урон через ServerRpc, чтобы хост был авторитетным.
+                if (root.TryGetComponent(out NetworkHealth networkHealth))
+                {
+                    NetworkObject attackerNob = GetComponent<NetworkObject>();
+                    networkHealth.ServerRequestDamage(amount, hit.ClosestPoint(center), attackerNob);
+                    continue;
+                }
+
+                // Локальный режим (без сети): прямой вызов.
                 if (hit.TryGetComponent(out IDamageable damageable) ||
-                    hit.transform.root.TryGetComponent(out damageable))
+                    root.TryGetComponent(out damageable))
                 {
                     damageable.TakeDamage(new DamageInfo(amount, hit.ClosestPoint(center), gameObject));
                 }
