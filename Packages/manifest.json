@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "com.firstgeargames.fishnet": "4.6.9",
     "com.unity.ai.navigation": "2.0.5",
     "com.unity.cinemachine": "3.1.2",
     "com.unity.inputsystem": "1.11.2",
@@ -19,14 +18,5 @@
     "com.unity.modules.ui": "1.0.0",
     "com.unity.modules.uielements": "1.0.0",
     "com.unity.modules.unitywebrequest": "1.0.0"
-  },
-  "scopedRegistries": [
-    {
-      "name": "OpenUPM",
-      "url": "https://package.openupm.com",
-      "scopes": [
-        "com.firstgeargames"
-      ]
-    }
-  ]
+  }
 }
