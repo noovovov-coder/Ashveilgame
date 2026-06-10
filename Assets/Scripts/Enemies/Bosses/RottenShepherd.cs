@@ -62,6 +62,13 @@ namespace Ashveil.Enemies.Bosses
 
         public event System.Action<int> PhaseChanged; // для UI/музыки (FMOD позже)
 
+        /// <summary>Настройка из кода (GameBootstrap) вместо инспектора.</summary>
+        public void Configure(PoisonCloud cloudTemplate, EnemyAI addTemplate)
+        {
+            poisonCloudPrefab = cloudTemplate;
+            addPrefab = addTemplate;
+        }
+
         private void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
@@ -178,6 +185,7 @@ namespace Ashveil.Enemies.Bosses
                 yield return new WaitForSeconds(1f);
 
                 PoisonCloud cloud = Instantiate(poisonCloudPrefab, targetPos, Quaternion.identity);
+                cloud.gameObject.SetActive(true);
                 cloud.Init(gameObject);
             }
 
@@ -202,6 +210,7 @@ namespace Ashveil.Enemies.Bosses
                 Vector2 offset = Random.insideUnitCircle.normalized * 4f;
                 Vector3 position = transform.position + new Vector3(offset.x, 0f, offset.y);
                 EnemyAI add = Instantiate(addPrefab, position, Quaternion.identity);
+                add.gameObject.SetActive(true); // шаблон может быть неактивным
                 _liveAdds.Add(add);
             }
 

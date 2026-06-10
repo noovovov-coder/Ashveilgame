@@ -12,7 +12,7 @@ namespace Ashveil.Network
     /// GDD §14: «ИИ только у хоста» — тот же принцип: авторитетный сервер.
     /// </summary>
     [RequireComponent(typeof(Health))]
-    public class NetworkHealth : NetworkBehaviour
+    public class NetworkHealth : NetworkBehaviour, IDamageRouter
     {
         private Health _health;
 
@@ -57,6 +57,15 @@ namespace Ashveil.Network
             // (авторитетно пришло с сервера).
             if (!IsServerInitialized && _health != null)
                 _health.ForceSet(next);
+        }
+
+        /// <summary>Точка входа из боевой системы (IDamageRouter).</summary>
+        public void RouteDamage(float amount, Vector3 hitPoint, GameObject attacker)
+        {
+            NetworkObject attackerNob = attacker != null
+                ? attacker.GetComponent<NetworkObject>()
+                : null;
+            ServerRequestDamage(amount, hitPoint, attackerNob);
         }
 
         /// <summary>

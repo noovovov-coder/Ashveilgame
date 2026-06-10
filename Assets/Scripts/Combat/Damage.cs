@@ -29,4 +29,14 @@ namespace Ashveil.Combat
     {
         void Stagger(float duration);
     }
+
+    /// <summary>
+    /// Перехват урона сетевым слоем: если на цели есть роутер,
+    /// бой шлёт урон через него (ServerRpc у хоста), а не напрямую.
+    /// Позволяет ядру боя не зависеть от FishNet.
+    /// </summary>
+    public interface IDamageRouter
+    {
+        void RouteDamage(float amount, Vector3 hitPoint, GameObject attacker);
+    }
 }

@@ -1,4 +1,5 @@
 using Ashveil.Combat;
+using Ashveil.Items;
 using Ashveil.Player;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace Ashveil.UI
     {
         private Health _playerHealth;
         private PlayerStamina _playerStamina;
+        private ResourceWallet _wallet;
 
         private void Start()
         {
@@ -20,6 +22,7 @@ namespace Ashveil.UI
             {
                 _playerHealth = player.GetComponent<Health>();
                 _playerStamina = player.GetComponent<PlayerStamina>();
+                _wallet = player.GetComponent<ResourceWallet>();
             }
         }
 
@@ -35,6 +38,14 @@ namespace Ashveil.UI
             {
                 DrawBar(new Rect(20, 48, 240, 16), _playerStamina.Current / _playerStamina.Max,
                     Color.green, string.Empty);
+            }
+
+            if (_wallet != null)
+            {
+                GUI.Label(new Rect(20, 70, 400, 22),
+                    $"Дерево: {_wallet.Get(ResourceType.Wood)}   " +
+                    $"Камень: {_wallet.Get(ResourceType.Stone)}   " +
+                    $"Железо: {_wallet.Get(ResourceType.Iron)}");
             }
         }
 

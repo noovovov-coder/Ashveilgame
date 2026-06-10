@@ -22,6 +22,13 @@ namespace Ashveil.Items
         [SerializeField] private ItemPickup pickupPrefab;
         [SerializeField] private float scatterRadius = 1.5f;
 
+        /// <summary>Настройка из кода (GameBootstrap) вместо инспектора.</summary>
+        public void Configure(ItemPickup pickup, params LootEntry[] table)
+        {
+            pickupPrefab = pickup;
+            lootTable = table;
+        }
+
         private void Awake()
         {
             GetComponent<Health>().Died += DropLoot;
@@ -44,6 +51,7 @@ namespace Ashveil.Items
                 Vector3 position = transform.position + new Vector3(scatter.x, 0.5f, scatter.y);
 
                 ItemPickup pickup = Instantiate(pickupPrefab, position, Quaternion.identity);
+                pickup.gameObject.SetActive(true); // шаблон может быть неактивным
                 pickup.Item = entry.item;
             }
         }

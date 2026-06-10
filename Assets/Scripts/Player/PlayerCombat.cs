@@ -1,7 +1,5 @@
 using System.Collections;
 using Ashveil.Combat;
-using Ashveil.Network;
-using FishNet.Object;
 using UnityEngine;
 
 namespace Ashveil.Player
@@ -157,11 +155,10 @@ namespace Ashveil.Player
 
                 GameObject root = hit.transform.root.gameObject;
 
-                // Сетевой враг: урон через ServerRpc, чтобы хост был авторитетным.
-                if (root.TryGetComponent(out NetworkHealth networkHealth))
+                // Сетевая цель: урон через роутер (ServerRpc у хоста — авторитетно).
+                if (root.TryGetComponent(out IDamageRouter router))
                 {
-                    NetworkObject attackerNob = GetComponent<NetworkObject>();
-                    networkHealth.ServerRequestDamage(amount, hit.ClosestPoint(center), attackerNob);
+                    router.RouteDamage(amount, hit.ClosestPoint(center), gameObject);
                     continue;
                 }
 
