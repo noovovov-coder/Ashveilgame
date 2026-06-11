@@ -1,3 +1,4 @@
+#if FISHNET
 using Ashveil.Enemies;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
@@ -59,3 +60,4 @@ namespace Ashveil.Network
         }
     }
 }
+#endif

@@ -1,3 +1,4 @@
+#if FISHNET
 using Ashveil.Player;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
@@ -70,3 +71,4 @@ namespace Ashveil.Network
         }
     }
 }
+#endif

@@ -1,3 +1,4 @@
+#if FISHNET
 using Ashveil.Combat;
 using FishNet.Object;
 using FishNet.Object.Synchronizing;
@@ -80,3 +81,4 @@ namespace Ashveil.Network
         }
     }
 }
+#endif

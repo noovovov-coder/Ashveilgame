@@ -1,3 +1,4 @@
+#if FISHNET
 using FishNet;
 using FishNet.Connection;
 using FishNet.Managing;
@@ -57,3 +58,4 @@ namespace Ashveil.Network
         }
     }
 }
+#endif
