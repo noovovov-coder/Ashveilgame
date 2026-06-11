@@ -1,0 +1,21 @@
+{
+    "name": "Ashveil.Network",
+    "rootNamespace": "Ashveil.Network",
+    "references": [
+        "Ashveil",
+        "FishNet.Runtime",
+        "Unity.InputSystem",
+        "UnityEngine.UI"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "FISHNET"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
